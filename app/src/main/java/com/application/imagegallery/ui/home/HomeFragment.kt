@@ -1,14 +1,12 @@
 package com.application.imagegallery.ui.home
 
 import android.app.ProgressDialog
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -55,27 +53,27 @@ class HomeFragment : Fragment() {
 
     private fun callPixabayAPI() {
         val progressDialog = ProgressDialog(requireActivity())
-        progressDialog.setMessage("Logging in...")
+        progressDialog.setMessage("Fetching...")
         progressDialog.setCanceledOnTouchOutside(false)
         progressDialog.show()
 
 
-        val callback: Callback<HitsResponse> = object : Callback<HitsResponse> {
-            override fun onResponse(call: Call<HitsResponse>, response: Response<HitsResponse>) {
+        val callback: Callback<HitsResponse?> = object : Callback<HitsResponse?> {
+            override fun onResponse(call: Call<HitsResponse?>, response: Response<HitsResponse?>) {
                 Log.i("onResponse", response.toString())
 
                 progressDialog.dismiss()
 
             }
 
-            override fun onFailure(call: Call<HitsResponse>, t: Throwable) {
+            override fun onFailure(call: Call<HitsResponse?>, t: Throwable) {
                 Log.i("onFailure", t.toString())
 
                 progressDialog.dismiss()
             }
         }
-
-        WebServiceHelper.getImagesJsonCall(username, password)?.enqueue(callback)
+        val repoRetriever = WebServiceHelper()
+        repoRetriever.getImagesJsonCall("", "")?.enqueue(callback)
 
     }
 

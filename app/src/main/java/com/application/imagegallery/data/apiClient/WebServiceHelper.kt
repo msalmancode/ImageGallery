@@ -17,8 +17,8 @@ class WebServiceHelper : Constants() {
         interceptor.level = HttpLoggingInterceptor.Level.BODY
         return OkHttpClient.Builder()
             .addInterceptor(interceptor)
-            .readTimeout(READ_TIMEOUT.toLong(), TimeUnit.SECONDS)
-            .connectTimeout(CONNECT_TIMEOUT.toLong(), TimeUnit.SECONDS)
+            .readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
+            .connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
             .build()
     }
 
@@ -31,6 +31,8 @@ class WebServiceHelper : Constants() {
     }
 
 
+
+
     fun getImagesJsonCall(imageType: String, searchText: String): Call<HitsResponse?>? {
         val params: MutableMap<String, String> = HashMap()
         params["image_type"] = imageType
@@ -38,6 +40,5 @@ class WebServiceHelper : Constants() {
         params["key"] = API_KEY
         return getRetrofit()?.create(APIService::class.java)?.imagesCall(params)
     }
-
 
 }
