@@ -1,6 +1,7 @@
 package com.application.imagegallery.data.apiClient
 
-import com.application.imagegallery.data.model.WebServiceRequest.HitsResponse
+import com.application.imagegallery.data.webService.request.ApiRequest
+import com.application.imagegallery.data.webService.response.ApiResponse
 import com.application.imagegallery.uitls.Constants
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -31,14 +32,19 @@ class WebServiceHelper : Constants() {
     }
 
 
-
-
-    fun getImagesJsonCall(imageType: String, searchText: String): Call<HitsResponse?>? {
-        val params: MutableMap<String, String> = HashMap()
+    fun getImagesJsonCall(imageType: String, searchText: String): Call<ApiResponse?>? {
+        /*val params: MutableMap<String, String> = HashMap<String,String>()
         params["image_type"] = imageType
         params["q"] = searchText
-        params["key"] = API_KEY
-        return getRetrofit()?.create(APIService::class.java)?.imagesCall(params)
+        params["key"] = API_KEY*/
+
+        return getRetrofit()
+            ?.create(APIService::class.java)
+            ?.imagesCall(
+                API_KEY,
+                searchText,
+                imageType
+            )
     }
 
 }
