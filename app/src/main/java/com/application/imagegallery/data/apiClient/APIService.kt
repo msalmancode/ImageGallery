@@ -2,7 +2,8 @@ package com.application.imagegallery.data.apiClient
 
 import com.application.imagegallery.data.webService.response.ApiResponse
 import retrofit2.Call
-import retrofit2.http.*
+import retrofit2.http.GET
+import retrofit2.http.Query
 
 
 interface APIService {
@@ -15,7 +16,8 @@ interface APIService {
     fun imagesCall(
         @Query("key") key: String,
         @Query("q") search: String,
-        @Query("image_type") imageType: String
+        @Query("image_type") imageType: String,
+        @Query("page") page: String,
     ): Call<ApiResponse?>?
 
 

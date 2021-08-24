@@ -22,8 +22,8 @@ class ImageAdapter(context: Context, data: ArrayList<HitDetail>) :
 
     inner class HomeViewHolder(var view: View) : RecyclerView.ViewHolder(
         view
-    ),
-        View.OnClickListener {
+    ), View.OnClickListener {
+
         var imageData: ImageView
 
         override fun onClick(v: View) {
@@ -35,7 +35,7 @@ class ImageAdapter(context: Context, data: ArrayList<HitDetail>) :
 
         init {
             imageData = view.findViewById<View>(R.id.image_view) as ImageView
-
+            imageData.setOnClickListener(this)
         }
     }
 
