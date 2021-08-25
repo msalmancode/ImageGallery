@@ -16,8 +16,10 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.application.imagegallery.R
 import com.application.imagegallery.adapters.ImageAdapter
 import com.application.imagegallery.data.apiClient.WebServiceHelper
+
 import com.application.imagegallery.data.model.HitDetail
 import com.application.imagegallery.data.webService.response.ApiResponse
+
 import com.application.imagegallery.databinding.FragmentHomeBinding
 import com.application.imagegallery.uitls.Network
 import retrofit2.Call
@@ -39,6 +41,8 @@ class HomeFragment : Fragment() {
 
     var imagesDataAll: ArrayList<HitDetail> = ArrayList<HitDetail>()
 
+    var pageNo: Int = 1
+
     private var loaded = true
 
     private val binding get() = _binding!!
@@ -55,7 +59,7 @@ class HomeFragment : Fragment() {
         val root: View = binding.root
 
         if (Network.isConnected(requireActivity())) {
-            callGetAllAPI("1")
+            callGetAllAPI()
         } else {
 
         }
@@ -75,7 +79,7 @@ class HomeFragment : Fragment() {
         recyclerView?.layoutManager = layoutManager
     }
 
-    private fun callGetAllAPI(page: String) {
+    private fun callGetAllAPI() {
         val callback: Callback<ApiResponse?> = object : Callback<ApiResponse?> {
             override fun onResponse(call: Call<ApiResponse?>, response: Response<ApiResponse?>) {
                 Log.i("onResponse", response.toString())
@@ -92,7 +96,7 @@ class HomeFragment : Fragment() {
             }
         }
         val repoRetriever = WebServiceHelper()
-        repoRetriever.getImagesJsonCall("", "", page)?.enqueue(callback)
+        repoRetriever.getImagesJsonCall("", "", pageNo.toString())?.enqueue(callback)
 
     }
 
@@ -111,7 +115,6 @@ class HomeFragment : Fragment() {
             recyclerView!!.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
 
-
                     if (dy > 0) { //check for scroll down
                         var visibleItemCount = layoutManager!!.childCount
                         var totalItemCount = layoutManager!!.itemCount
@@ -122,10 +125,10 @@ class HomeFragment : Fragment() {
                                 loaded = false
                                 //Log.v("...", "Last Item Wow !");
                                 // Do pagination.. i.e. fetch new data
-                                var page = totalItemCount / 20
-                                page++
+//                                var page = totalItemCount / 20
+                                pageNo++
                                 if (Network.isConnected(requireActivity())) {
-                                    callGetAllAPI(page.toString())
+                                    callGetAllAPI()
                                 } else {
 
                                 }
