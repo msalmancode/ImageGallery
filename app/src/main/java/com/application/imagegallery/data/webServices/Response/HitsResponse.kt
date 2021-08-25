@@ -1,6 +1,4 @@
-package com.application.imagegallery.data.model.WebServiceRequest
-
-import com.application.imagegallery.data.model.WebServiceResponse.BaseResponse
+package com.application.imagegallery.data.webServices.Response
 
 class HitsResponse : BaseResponse() {
 

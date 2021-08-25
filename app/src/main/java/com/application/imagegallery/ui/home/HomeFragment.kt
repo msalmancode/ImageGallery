@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.application.imagegallery.data.apiClient.WebServiceHelper
-import com.application.imagegallery.data.model.WebServiceRequest.HitsResponse
+import com.application.imagegallery.data.webServices.Response.HitsResponse
 import com.application.imagegallery.databinding.FragmentHomeBinding
 import com.application.imagegallery.uitls.Network
 import retrofit2.Call
@@ -73,7 +73,7 @@ class HomeFragment : Fragment() {
             }
         }
         val repoRetriever = WebServiceHelper()
-        repoRetriever.getImagesJsonCall("", "")?.enqueue(callback)
+        repoRetriever.getImagesJsonCall("", "q")?.enqueue(callback)
 
     }
 
