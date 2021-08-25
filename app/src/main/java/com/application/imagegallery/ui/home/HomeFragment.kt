@@ -110,32 +110,7 @@ class HomeFragment : Fragment() {
             })
             recyclerView!!.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                    /* if (dy > 0) {
-                         var pastVisibleItems = 0
-                         val visibleItemCount: Int
-                         val totalItemCount: Int
-                         val layoutManager = recyclerView.layoutManager
-                         visibleItemCount = layoutManager!!.childCount
-                         totalItemCount = layoutManager.itemCount
-                         // Already covers the GridLayoutManager case
-                         if (layoutManager is LinearLayoutManager) {
-                             pastVisibleItems = layoutManager.findFirstVisibleItemPosition()
-                         } else if (layoutManager is StaggeredGridLayoutManager) {
-                             val positions = layoutManager.findFirstVisibleItemPositions(null)
-                             if (positions != null && positions.size > 0) pastVisibleItems =
-                                 positions[0]
-                         }
-                         if (visibleItemCount + pastVisibleItems >= totalItemCount) {
-                             loaded = false
-                             var page = totalItemCount / 20
-                             page++
-                             if (Network.isConnected(requireActivity())) {
-                                 callGetAllAPI(page.toString())
-                             } else {
 
-                             }
-                         }
-                     }*/
 
                     if (dy > 0) { //check for scroll down
                         var visibleItemCount = layoutManager!!.childCount
